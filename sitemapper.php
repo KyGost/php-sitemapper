@@ -3,7 +3,7 @@
 	// Version: 1.1
 
 	$home = $_SERVER['DOCUMENT_ROOT'];
-	$homeurl = "http://" . $_SERVER['HTTP_HOST'];
+	$homeurl = "//" . $_SERVER['HTTP_HOST'];
 	$innerurls = array();
 	$text = "";
 
