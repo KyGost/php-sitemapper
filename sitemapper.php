@@ -1,10 +1,19 @@
 <?php
 
+	// Version: 1.1
+
 	$home = $_SERVER['DOCUMENT_ROOT'];
-	$homeurl = $_SERVER['HTTP_HOST'];
-	$urls = array_diff(scandir($home . "/", 1), array('..', '.'));
+	$homeurl = "http://" . $_SERVER['HTTP_HOST'];
 	$innerurls = array();
 	$text = "";
+
+	if (isset($_GET['dir']))
+	{
+		$home .= $_GET['dir'];
+		$homeurl .= $_GET['dir'];
+	}
+
+	$urls = array_diff(scandir($home . "/", 1), array('..', '.'));
 
 	if (isset($_GET['xml']))
 	{
@@ -28,7 +37,7 @@
 
 	function checkurl($url, $level, $dir)
 	{
-		global $xml, $text, $levels, $home;
+		global $xml, $text, $levels, $home, $homeurl;
 		if ($xml == true)
 		{
 			$text .= "<url><loc> " . $homeurl . $dir . $url . " </loc></url>\n";
