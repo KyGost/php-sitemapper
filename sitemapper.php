@@ -1,6 +1,6 @@
 <?php
 
-	// Version: 1.1
+	// Version: 1.2
 
 	$home = $_SERVER['DOCUMENT_ROOT'];
 	$homeurl = "//" . $_SERVER['HTTP_HOST'];
@@ -29,6 +29,10 @@
 	{
 		$text .= "<?xml version='1.0' encoding='UTF-8'?>\n<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>\n";
 	}
+	else
+	{
+		$text .= "<html> <head>	<link rel='stylesheet' type='text/css' href='sitemapperresources/style.css'> </head> <body> ";
+	}
 
 	foreach ($urls as $url)
 	{
@@ -38,21 +42,36 @@
 	function checkurl($url, $level, $dir)
 	{
 		global $xml, $text, $levels, $home, $homeurl;
-		if ($xml == true)
+		$isdir = another_is_dir($dir . $url);
+
+		if ($isdir && !$xml)
+		{
+			$text .= "<div class='dirholder'>";
+		}
+
+		if ($xml)
 		{
 			$text .= "<url><loc> " . $homeurl . $dir . $url . " </loc></url>\n";
 		}
-		elseif ($xml == false)
+		elseif (!$xml && !$isdir)
 		{
-			$text .= str_repeat($levels, $level) . "<a href='" . $homeurl . $dir . $url . "'> " . $url . "</a><br>";
+			$text .= str_repeat($levels, $level) . "<a href='" . $homeurl . $dir . $url . "' class='url'> " . $url . "</a><br>";
+		}
+		elseif (!$xml && $isdir)
+		{
+			$text .= str_repeat($levels, $level) . "<input type='checkbox' id='" . $dir . $url . "' class='extender'> <label class='dir' for='" . $dir . $url . "'> " . $url . "</label><br>";
 		}
 
-		if (another_is_dir($dir . $url))
+		if ($isdir)
 		{
 			$innerurls[$url] = array_diff(scandir($home . $dir . $url, 1), array('..', '.'));
 			foreach ($innerurls[$url] as $urld)
 			{
 				checkurl($urld, $level + 1, $dir . $url . "/");
+			}
+			if (!$xml)
+			{
+				$text .= "</div>";
 			}
 		}
 	}
@@ -70,6 +89,8 @@
 	}
 	else
 	{
+		
+		$text .= " </body> </html>";
 		echo $text;
 	}
 

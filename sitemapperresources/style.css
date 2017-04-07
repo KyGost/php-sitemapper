@@ -1,0 +1,39 @@
+body
+{
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	background: lightblue;
+}
+.url, .dir
+{
+	background: #333333;
+	text-decoration: none;
+	color: #FFFFFF;
+	padding: 10px 20px;
+	display: inline-block;
+}
+.dir:before
+{
+	content: "-";
+}
+.dirholder .url, .dirholder .dirholder
+{
+	display: none;
+}
+.extender
+{
+	display: none;
+}
+.extender:checked + .dir:before
+{
+	content: "+";
+}
+.extender:checked ~ .url
+{
+	display: inline-block;
+}
+.extender:checked ~ .dirholder
+{
+	display: initial;
+}
