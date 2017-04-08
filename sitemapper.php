@@ -1,8 +1,8 @@
 <?php
 
-	// Version: 1.2
+	/* Version: 1.2.1 */
 
-	$home = $_SERVER['DOCUMENT_ROOT'];
+	$home = getcwd();
 	$homeurl = "http://" . $_SERVER['HTTP_HOST'];
 	$innerurls = array();
 	$text = "";
@@ -31,7 +31,7 @@
 	}
 	else
 	{
-		$text .= "<html> <head>	<link rel='stylesheet' type='text/css' href='sitemapperresources/style.css'> </head> <body> ";
+		$text .= "<html> <head>	<link rel='stylesheet' type='text/css' href='sitemapperresources/style.css'> </head> <body> <input type='checkbox' id='extendall' class='extendall extender'> <label class='dir' for='extendall'> ALL </label><br>";
 	}
 
 	foreach ($urls as $url)

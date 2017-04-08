@@ -1,3 +1,5 @@
+/* Version: 1.2.1 */
+
 body
 {
 	margin: 0px;
@@ -36,4 +38,20 @@ body
 .extender:checked ~ .dirholder
 {
 	display: initial;
+}
+.extendall:checked ~ .dirholder .url
+{
+	display: inline-block;
+}
+.extendall:checked ~ .dirholder .dirholder
+{
+	display: initial;
+}
+.extendall:checked ~ .dirholder .dir:before
+{
+	content: "+";
+}
+.extendall:checked ~ .dirholder .dir
+{
+	pointer-events: none;
 }
